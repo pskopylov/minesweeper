@@ -108,11 +108,16 @@ class Minesweeper(object):
     def __mark_button_handler(self):
         self.__mark = not self.__mark
 
+    def __mark_key_handler(self, key):
+        if chr(key) == constants.M_KEY:
+            self.__mark = not self.__mark
+
     def __init_frame(self):
         frame = simplegui.create_frame(constants.TITLE, constants.WIDTH, constants.HEIGHT)
         frame.set_canvas_background(constants.BG_COLOR)
         frame.set_draw_handler(self.__draw)
         frame.set_mouseclick_handler(self.__click)
+        frame.set_keydown_handler(self.__mark_key_handler)
         frame.add_button(constants.RESTART, self.__restart_button_handler)
         frame.add_button(constants.MARK_MODE_BUTTON, self.__mark_button_handler)
         frame.start()
