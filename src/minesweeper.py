@@ -1,6 +1,6 @@
 import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 from field import Field
-import constatnts
+import constants
 
 
 class Minesweeper(object):
@@ -9,7 +9,7 @@ class Minesweeper(object):
         self.__rows = size[0]
         self.__cols = size[1]
         self.__mines = mines
-        self.__cell_size = constatnts.CELL_SIZE
+        self.__cell_size = constants.CELL_SIZE
         self.__win = False
         self.__game_over = False
         self.__mark = False
@@ -30,17 +30,17 @@ class Minesweeper(object):
     def __draw_bottom(self, canvas):
         p1 = (0, self.__cols * self.__cell_size)
         p2 = (self.__rows * self.__cell_size, self.__cols * self.__cell_size)
-        canvas.draw_line(p1, p2, constatnts.LINE_WIDTH, constatnts.LINE_COLOR)
+        canvas.draw_line(p1, p2, constants.LINE_WIDTH, constants.LINE_COLOR)
         canvas.draw_text("Mark mode: " + str(self.__mark), (5, self.__rows * self.__cell_size + 15),
-                         constatnts.MARK_MODE_TEXT_SIZE, constatnts.FONT_COLOR)
+                         constants.MARK_MODE_TEXT_SIZE, constants.FONT_COLOR)
 
     def __draw_image(self, canvas, cell, is_block, is_mark):
         image = cell.get_image()
         if is_block:
-            image = constatnts.BLOCK_IMAGE
+            image = constants.BLOCK_IMAGE
         elif is_mark:
-            image = constatnts.FLAG_IMAGE
-        canvas.draw_image(image, constatnts.BLOCK_CENTER, constatnts.BLOCK_SIZE,
+            image = constants.FLAG_IMAGE
+        canvas.draw_image(image, constants.BLOCK_CENTER, constants.BLOCK_SIZE,
                           (self.__cell_size * (cell.get_x() + 0.5), self.__cell_size * (cell.get_y() + 0.5)),
                           (self.__cell_size, self.__cell_size))
 
@@ -63,7 +63,7 @@ class Minesweeper(object):
 
     def __draw_mine(self, canvas, cell):
         self.__draw_image(canvas, cell, False, False)
-        self.__game_over = False if self.__win else True
+        self.__game_over = not self.__win
 
     def __check_is_over(self, canvas):
         if self.__game_over:
@@ -73,13 +73,13 @@ class Minesweeper(object):
 
     # noinspection PyMethodMayBeStatic
     def __game_over_result(self, canvas):
-        canvas.draw_text(constatnts.GAME_OVER_TEXT, (30, constatnts.HEIGHT - 10),
-                         constatnts.RESULT_FONT_SIZE, constatnts.GAME_OVER_COLOR)
+        canvas.draw_text(constants.GAME_OVER_TEXT, (30, constants.HEIGHT - 10),
+                         constants.RESULT_FONT_SIZE, constants.GAME_OVER_COLOR)
 
     def __win_result(self, canvas):
         self.__mark_all_mines(canvas)
-        canvas.draw_text(constatnts.WIN_TEXT, (50, constatnts.HEIGHT - 10),
-                         constatnts.RESULT_FONT_SIZE, constatnts.WIN_COLOR)
+        canvas.draw_text(constants.WIN_TEXT, (50, constants.HEIGHT - 10),
+                         constants.RESULT_FONT_SIZE, constants.WIN_COLOR)
         self.__win = True
 
     def __mark_all_mines(self, canvas):
@@ -106,11 +106,11 @@ class Minesweeper(object):
         self.__field = Field(self.__rows, self.__cols, self.__mines)
 
     def __mark_button_handler(self):
-        self.__mark = False if self.__mark else True
+        self.__mark = not self.__mark
 
     def __init_frame(self):
-        frame = simplegui.create_frame("Minesweeper", constatnts.WIDTH, constatnts.HEIGHT)
-        frame.set_canvas_background(constatnts.BG_COLOR)
+        frame = simplegui.create_frame("Minesweeper", constants.WIDTH, constants.HEIGHT)
+        frame.set_canvas_background(constants.BG_COLOR)
         frame.set_draw_handler(self.__draw)
         frame.set_mouseclick_handler(self.__click)
         frame.add_button("Restart", self.__restart_button_handler)

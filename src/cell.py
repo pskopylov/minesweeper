@@ -3,8 +3,8 @@ class Cell(object):
     def __init__(self, x, y):
         self.__x = x
         self.__y = y
-        self.__mine = False
         self.__value = 0
+        self.__mine = False
         self.__opened = False
         self.__marked = False
         self.__image = None
