@@ -10,6 +10,10 @@ ROWS = 9
 COLS = 9
 MINES = 10
 
+TITLE = "Minesweeper"
+RESTART = "Restart"
+MARK_MODE_BUTTON = "Mark mode"
+MARK_MODE_PIC = "Mark mode: "
 WIN_TEXT = "YOU WIN!"
 WIN_COLOR = "GREEN"
 GAME_OVER_TEXT = "GAME OVER"

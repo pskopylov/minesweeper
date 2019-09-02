@@ -13,6 +13,7 @@ class Field(object):
         self.__cells = []
         self.__opened_cells = 0
         self.__marked_cells = 0
+
         self.__create_cells()
 
     def __create_cells(self):

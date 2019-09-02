@@ -31,7 +31,7 @@ class Minesweeper(object):
         p1 = (0, self.__cols * self.__cell_size)
         p2 = (self.__rows * self.__cell_size, self.__cols * self.__cell_size)
         canvas.draw_line(p1, p2, constants.LINE_WIDTH, constants.LINE_COLOR)
-        canvas.draw_text("Mark mode: " + str(self.__mark), (5, self.__rows * self.__cell_size + 15),
+        canvas.draw_text(constants.MARK_MODE_PIC + str(self.__mark), (5, self.__rows * self.__cell_size + 15),
                          constants.MARK_MODE_TEXT_SIZE, constants.FONT_COLOR)
 
     def __draw_image(self, canvas, cell, is_block, is_mark):
@@ -109,10 +109,10 @@ class Minesweeper(object):
         self.__mark = not self.__mark
 
     def __init_frame(self):
-        frame = simplegui.create_frame("Minesweeper", constants.WIDTH, constants.HEIGHT)
+        frame = simplegui.create_frame(constants.TITLE, constants.WIDTH, constants.HEIGHT)
         frame.set_canvas_background(constants.BG_COLOR)
         frame.set_draw_handler(self.__draw)
         frame.set_mouseclick_handler(self.__click)
-        frame.add_button("Restart", self.__restart_button_handler)
-        frame.add_button("Mark mines", self.__mark_button_handler)
+        frame.add_button(constants.RESTART, self.__restart_button_handler)
+        frame.add_button(constants.MARK_MODE_BUTTON, self.__mark_button_handler)
         frame.start()
