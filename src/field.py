@@ -47,9 +47,7 @@ class Field(object):
         new_cell = Cell(x, y)
         value = 0
         for i in range(-1, 2):
-            for j in range(-1, 2):
-                if i == 0 and j == 0:
-                    continue
+            for j in (j for j in range(-1, 2) if not (j == i == 0)):
                 new_x = x - i
                 new_y = y - j
                 if (0 <= new_x < self.__w) and (0 <= new_y < self.__h):
@@ -79,16 +77,15 @@ class Field(object):
 
     def __open_empty_cells(self, x, y):
         for i in range(-1, 2):
-            for j in range(-1, 2):
-                if abs(i + j) == 1:
-                    new_x = x - i
-                    new_y = y - j
-                    if (0 <= new_x < self.__w) and (0 <= new_y < self.__h):
-                        cell = self.__cells[new_x][new_y]
-                        if cell.is_not_opened_empty_cell():
-                            self.open_cells(new_x, new_y)
-                        elif not (cell.is_mine() or cell.is_open()):
-                            self.__open_cell(cell)
+            for j in (j for j in range(-1, 2) if not (j == i == 0)):
+                new_x = x - i
+                new_y = y - j
+                if (0 <= new_x < self.__w) and (0 <= new_y < self.__h):
+                    cell = self.__cells[new_x][new_y]
+                    if cell.is_not_opened_empty_cell():
+                        self.open_cells(new_x, new_y)
+                    elif not (cell.is_mine() or cell.is_open()):
+                        self.__open_cell(cell)
 
     def __open_cell(self, cell):
         self.__opened_cells += 1

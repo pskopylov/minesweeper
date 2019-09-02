@@ -78,9 +78,9 @@ class Minesweeper(object):
 
     def __win_result(self, canvas):
         self.__mark_all_mines(canvas)
+        self.__win = True
         canvas.draw_text(constants.WIN_TEXT, (50, constants.HEIGHT - 10),
                          constants.RESULT_FONT_SIZE, constants.WIN_COLOR)
-        self.__win = True
 
     def __mark_all_mines(self, canvas):
         for x in range(self.__rows):
