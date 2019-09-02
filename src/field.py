@@ -93,12 +93,13 @@ class Field(object):
 
     def mark_cell(self, x, y):
         cell = self.__cells[x][y]
-        if cell.is_marked():
-            cell.unmark()
-            self.__marked_cells -= 1
-        elif self.__marked_cells < self.__num_of_mines:
-            cell.mark()
-            self.__marked_cells += 1
+        if not cell.is_open():
+            if cell.is_marked():
+                cell.unmark()
+                self.__marked_cells -= 1
+            elif self.__marked_cells < self.__num_of_mines:
+                cell.mark()
+                self.__marked_cells += 1
 
     def __check_marked(self):
         count = 0
