@@ -63,12 +63,13 @@ class Field(object):
 
     def open_cells(self, x, y):
         cell = self.__cells[x][y]
-        self.__open_cell(cell)
-        if cell.is_empty_cell():
-            self.__open_empty_cells(x, y)
-        elif cell.is_mine():
-            cell.set_image(constants.RED_MINE_IMAGE)
-            self.__open_mines()
+        if not cell.is_open():
+            self.__open_cell(cell)
+            if cell.is_empty_cell():
+                self.__open_empty_cells(x, y)
+            elif cell.is_mine():
+                cell.set_image(constants.RED_MINE_IMAGE)
+                self.__open_mines()
 
     def __open_mines(self):
         for rows in self.__cells:
