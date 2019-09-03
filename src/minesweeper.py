@@ -89,6 +89,12 @@ class Minesweeper(object):
                 if cell.is_mine():
                     self.__draw_image(canvas, cell, False, True)
 
+    def __restart(self):
+        self.__game_over = False
+        self.__win = False
+        self.__mark = False
+        self.__field = Field(self.__rows, self.__cols, self.__mines)
+
     def __click(self, pos):
         if not (self.__game_over or self.__win):
             x = int(pos[0] // self.__cell_size)
@@ -100,10 +106,7 @@ class Minesweeper(object):
                     self.__field.open_cells(x, y)
 
     def __restart_button_handler(self):
-        self.__game_over = False
-        self.__win = False
-        self.__mark = False
-        self.__field = Field(self.__rows, self.__cols, self.__mines)
+        self.__restart()
 
     def __mark_button_handler(self):
         self.__mark = not self.__mark
@@ -111,6 +114,8 @@ class Minesweeper(object):
     def __mark_key_handler(self, key):
         if chr(key) == constants.M_KEY:
             self.__mark = not self.__mark
+        elif chr(key) == constants.R_KEY:
+            self.__restart()
 
     def __init_frame(self):
         frame = simplegui.create_frame(constants.TITLE, constants.WIDTH, constants.HEIGHT)
