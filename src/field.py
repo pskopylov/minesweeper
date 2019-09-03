@@ -84,7 +84,7 @@ class Field(object):
                     cell = self.__cells[new_x][new_y]
                     if cell.is_not_opened_empty_cell():
                         self.open_cells(new_x, new_y)
-                    elif not (cell.is_mine() or cell.is_open()):
+                    elif not cell.is_open():
                         self.__open_cell(cell)
 
     def __open_cell(self, cell):
